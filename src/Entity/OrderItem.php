@@ -25,6 +25,10 @@ class OrderItem
     #[ORM\Column(type: 'decimal', precision: 10, scale: 4)]
     private $quantity;
 
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $entity;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +78,18 @@ class OrderItem
     public function setQuantity(string $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getEntity(): ?Order
+    {
+        return $this->entity;
+    }
+
+    public function setEntity(?Order $entity): self
+    {
+        $this->entity = $entity;
 
         return $this;
     }
