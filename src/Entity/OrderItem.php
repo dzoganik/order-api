@@ -1,44 +1,78 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class OrderItem
+ * @package App\Entity
+ */
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
 class OrderItem
 {
+    /**
+     * @var int
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private int $id;
 
+    /**
+     * @var string
+     */
     #[ORM\Column(type: 'string', length: 100)]
-    private $productId;
+    private string $productId;
 
+    /**
+     * @var string
+     */
     #[ORM\Column(type: 'string', length: 255)]
-    private $title;
+    private string $title;
 
+    /**
+     * @var float
+     */
+    #[ORM\Column(type: 'decimal', precision: 11, scale: 4)]
+    private float $price;
+
+    /**
+     * @var float
+     */
     #[ORM\Column(type: 'decimal', precision: 10, scale: 4)]
-    private $price;
+    private float $quantity;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 4)]
-    private $quantity;
+    /**
+     * @var Order
+     */
+    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'parent')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private Order $parent;
 
-    #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'orderItems')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $entity;
-
-    public function getId(): ?int
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getProductId(): ?string
+    /**
+     * @return string
+     */
+    public function getProductId(): string
     {
         return $this->productId;
     }
 
+    /**
+     * @param string $productId
+     * @return $this
+     */
     public function setProductId(string $productId): self
     {
         $this->productId = $productId;
@@ -46,11 +80,18 @@ class OrderItem
         return $this;
     }
 
-    public function getTitle(): ?string
+    /**
+     * @return string
+     */
+    public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -58,38 +99,59 @@ class OrderItem
         return $this;
     }
 
-    public function getPrice(): ?string
+    /**
+     * @return float
+     */
+    public function getPrice(): float
     {
         return $this->price;
     }
 
-    public function setPrice(string $price): self
+    /**
+     * @param float $price
+     * @return $this
+     */
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getQuantity(): ?string
+    /**
+     * @return float
+     */
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(string $quantity): self
+    /**
+     * @param float $quantity
+     * @return $this
+     */
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getEntity(): ?Order
+    /**
+     * @return Order
+     */
+    public function getParent(): Order
     {
-        return $this->entity;
+        return $this->parent;
     }
 
-    public function setEntity(?Order $entity): self
+    /**
+     * @param Order|null $parent
+     * @return $this
+     */
+    public function setParent(?Order $parent): self
     {
-        $this->entity = $entity;
+        $this->parent = $parent;
 
         return $this;
     }
