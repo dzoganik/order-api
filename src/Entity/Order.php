@@ -52,10 +52,10 @@ class Order
     private float $orderValue;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Collection
      */
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: OrderItem::class)]
-    private ArrayCollection $orderItems;
+    private Collection|ArrayCollection $orderItems;
 
     public function __construct()
     {
