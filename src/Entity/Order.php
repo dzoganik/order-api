@@ -37,7 +37,7 @@ class Order
      * @var string
      */
     #[ORM\Column(type: 'string', length: 255)]
-    private string $order_id;
+    private string $orderId;
 
     /**
      * @var DateTimeInterface
@@ -94,16 +94,16 @@ class Order
      */
     public function getOrderId(): string
     {
-        return $this->order_id;
+        return $this->orderId;
     }
 
     /**
-     * @param string $order_id
+     * @param string $orderId
      * @return $this
      */
-    public function setOrderId(string $order_id): self
+    public function setOrderId(string $orderId): self
     {
-        $this->order_id = $order_id;
+        $this->orderId = $orderId;
 
         return $this;
     }
