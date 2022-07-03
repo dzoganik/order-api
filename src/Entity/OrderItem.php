@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class OrderItem
@@ -26,24 +27,28 @@ class OrderItem
      * @var string
      */
     #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\NotBlank]
     private string $productId;
 
     /**
      * @var string
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private string $title;
 
     /**
      * @var float
      */
     #[ORM\Column(type: 'decimal', precision: 11, scale: 4)]
+    #[Assert\NotBlank]
     private float $price;
 
     /**
      * @var float
      */
     #[ORM\Column(type: 'decimal', precision: 10, scale: 4)]
+    #[Assert\NotBlank]
     private float $quantity;
 
     /**

@@ -9,6 +9,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Order
@@ -31,30 +32,38 @@ class Order
      * @var string
      */
     #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\NotBlank]
     private string $partnerId;
 
     /**
      * @var string
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private string $orderId;
 
     /**
      * @var DateTimeInterface
      */
     #[ORM\Column(type: 'date')]
+    #[Assert\NotBlank]
     private DateTimeInterface $deliveryDate;
 
     /**
      * @var float
      */
     #[ORM\Column(type: 'decimal', precision: 11, scale: 4)]
+    #[Assert\NotBlank]
     private float $orderValue;
 
     /**
      * @var ArrayCollection|Collection
      */
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: OrderItem::class, cascade: ["persist"])]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Order must have at least one item.'
+    )]
     private Collection|ArrayCollection $orderItems;
 
     public function __construct()
