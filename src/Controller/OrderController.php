@@ -5,16 +5,29 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Result\OrderResult;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/orders', name: 'app_order_')]
 class OrderController extends CommonController
-
 {
+    /**
+     * @param SerializerInterface $serializer
+     * @param ValidatorInterface $validator
+     * @param LoggerInterface $logger
+     */
+    public function __construct(
+        protected SerializerInterface $serializer,
+        protected ValidatorInterface $validator,
+        protected LoggerInterface $logger
+    ) {}
+
     /**
      * @param Request $request
      * @param EntityManagerInterface $entityManager
@@ -31,18 +44,21 @@ class OrderController extends CommonController
 
         $entityManager->persist($this->data);
 
-        try {
+//        try {
             $entityManager->flush();
-        } catch (\Exception $exception) {
-            $this->logger->critical($exception->getMessage());
+//        } catch (\Exception $exception) {
+//            $this->logger->critical($exception->getMessage());
+//
+//            return $this->json(
+//                ["error" => 'There was an error while creating the order.'],
+//                Response::HTTP_BAD_REQUEST
+//            );
+//        }
 
-            return $this->json(
-                ["error" => 'There was an error while creating the order.'],
-                JsonResponse::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
+        $result = new OrderResult();
+        $result->setOrderId($this->data->getOrderId());
+        $result->setPartnerId($this->data->getPartnerId());
 
-
-        return $this->json('created', JsonResponse::HTTP_OK, ["Content-Type" => "application/json"]);
+        return $this->createResponse($result, Response::HTTP_CREATED);
     }
 }

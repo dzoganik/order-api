@@ -6,13 +6,14 @@ namespace App\Controller;
 
 use App\Exception\ValidationException;
 use App\Model\ResponseInterface;
-use Doctrine\Common\Inflector\Inflector;
+use App\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 abstract class CommonController extends AbstractController
 {
@@ -59,12 +60,9 @@ abstract class CommonController extends AbstractController
         }
     }
 
-    protected function createResponse(ResponseInterface $content = null, int $status = Response::HTTP_OK)
+    protected function createResponse(ResultInterface $content = null, int $status = Response::HTTP_OK)
     {
-        $context = new SerializationContext();
-        $context->setSerializeNull(false);
-
-        $content = $this->serializer->serialize($content, self::RESPONSE_FORMAT, $context);
+        $content = $this->serializer->serialize($content, self::RESPONSE_FORMAT);
 
         return new Response($content, $status, ['Content-Type' => self::CONTENT_TYPE]);
     }
@@ -75,7 +73,7 @@ abstract class CommonController extends AbstractController
 
         /** @var ConstraintViolation $violation */
         foreach ($violations as $violation) {
-            $errors[Inflector::tableize($violation->getPropertyPath())] = $violation->getMessage();
+            $errors[$violation->getPropertyPath()] = $violation->getMessage();
         }
 
         return json_encode(['errors' => $errors]);

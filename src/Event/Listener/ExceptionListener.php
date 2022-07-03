@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 class ExceptionListener
 {
     public function __construct(
-        private LoggerInterface $logger
+        protected LoggerInterface $logger
     ) {}
 
     public function onKernelException(ExceptionEvent $event): void
