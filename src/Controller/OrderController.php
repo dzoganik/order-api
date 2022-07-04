@@ -39,7 +39,27 @@ class OrderController extends CommonController
         EntityManagerInterface $entityManager
     ): Response {
         $this->validateContentType($request->headers->get('content_type'));
-        $this->validateRequestData($request->getContent(), Order::class);
+        $this->validateRequestCreateData($request->getContent(), Order::class);
+
+        $entityManager->persist($this->data);
+        $entityManager->flush();
+
+        $result = new OrderResult();
+        $result->setOrderId($this->data->getOrderId());
+        $result->setPartnerId($this->data->getPartnerId());
+
+        return $this->createResponse($result, Response::HTTP_CREATED);
+    }
+
+    #[Route('/{orderId}', name: 'update', methods: 'PATCH')]
+    public function update(
+        string $orderId,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $this->validatePartnerId($request->headers->get('partner_id'));
+        $this->validateContentType($request->headers->get('content_type'));
+        $this->validateRequestUpdateData($request, $entityManager);
 
         $entityManager->persist($this->data);
         $entityManager->flush();
