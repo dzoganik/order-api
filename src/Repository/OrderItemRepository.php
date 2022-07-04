@@ -18,11 +18,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OrderItemRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, OrderItem::class);
     }
 
+    /**
+     * @param OrderItem $entity
+     * @param bool $flush
+     * @return void
+     */
     public function add(OrderItem $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -32,6 +40,11 @@ class OrderItemRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param OrderItem $entity
+     * @param bool $flush
+     * @return void
+     */
     public function remove(OrderItem $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -40,29 +53,4 @@ class OrderItemRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return OrderItem[] Returns an array of OrderItem objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?OrderItem
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Exception\ValidationException;
-use App\Model\ResponseInterface;
 use App\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,13 +14,19 @@ use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-
+/**
+ * Class CommonController
+ * @package App\Controller
+ */
 abstract class CommonController extends AbstractController
 {
     public const CONTENT_TYPE = 'application/json';
     private const RESPONSE_FORMAT = 'json';
 
-    protected $data;
+    /**
+     * @var Order
+     */
+    protected Order $data;
 
     /**
      * @param SerializerInterface $serializer

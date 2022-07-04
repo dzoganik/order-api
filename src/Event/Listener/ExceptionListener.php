@@ -11,12 +11,23 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
+/**
+ * Class ExceptionListener
+ * @package App\Event\Listener
+ */
 class ExceptionListener
 {
+    /**
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         protected LoggerInterface $logger
     ) {}
 
+    /**
+     * @param ExceptionEvent $event
+     * @return void
+     */
     public function onKernelException(ExceptionEvent $event): void
     {
         if ($event->getThrowable() instanceof ApplicationException) {
@@ -28,6 +39,10 @@ class ExceptionListener
         $event->setResponse($response);
     }
 
+    /**
+     * @param Exception $exception
+     * @return Response
+     */
     private function handleKnownExceptions(Exception $exception): Response
     {
         $header = [];
@@ -40,6 +55,10 @@ class ExceptionListener
         return new Response($exception->getMessage(), $exception->getStatusCode(), $header);
     }
 
+    /**
+     * @param Exception $exception
+     * @return Response
+     */
     private function handleUnknownExceptions(Exception $exception): Response
     {
         $this->logger->error($exception);

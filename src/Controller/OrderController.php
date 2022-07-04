@@ -32,7 +32,6 @@ class OrderController extends CommonController
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
-     * @throws \Exception
      */
     #[Route('', name: 'create', methods: 'POST')]
     public function create(
@@ -43,17 +42,7 @@ class OrderController extends CommonController
         $this->validateRequestData($request->getContent(), Order::class);
 
         $entityManager->persist($this->data);
-
-//        try {
-            $entityManager->flush();
-//        } catch (\Exception $exception) {
-//            $this->logger->critical($exception->getMessage());
-//
-//            return $this->json(
-//                ["error" => 'There was an error while creating the order.'],
-//                Response::HTTP_BAD_REQUEST
-//            );
-//        }
+        $entityManager->flush();
 
         $result = new OrderResult();
         $result->setOrderId($this->data->getOrderId());
