@@ -28,13 +28,13 @@ class OrderControllerTest extends WebTestCase
             'orderItems' => [
                 [
                     'productId' => 'p789',
-                    'title' => 'Posteľ 456',
+                    'title' => 'Bed 456',
                     'price' => '5000',
                     'quantity' => '2',
                 ],
                 [
                     'productId' => 'p7890',
-                    'title' => 'Názov produktu 55',
+                    'title' => 'Product 55',
                     'price' => '500.50',
                     'quantity' => '1.5',
                 ],
