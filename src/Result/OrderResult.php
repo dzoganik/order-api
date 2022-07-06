@@ -23,9 +23,9 @@ class OrderResult implements ResultInterface
     private string $partnerId;
 
     /**
-     * @var DateTimeInterface
+     * @var string
      */
-    private DateTimeInterface $deliveryDate;
+    private string $deliveryDate;
 
     /**
      * @return string
@@ -64,18 +64,18 @@ class OrderResult implements ResultInterface
     }
 
     /**
-     * @return DateTimeInterface
+     * @return string
      */
-    public function getDeliveryDate(): DateTimeInterface
+    public function getDeliveryDate(): string
     {
         return $this->deliveryDate;
     }
 
     /**
-     * @param DateTimeInterface $deliveryDate
+     * @param string $deliveryDate
      * @return $this
      */
-    public function setDeliveryDate(DateTimeInterface $deliveryDate): self
+    public function setDeliveryDate(string $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
         return $this;

@@ -87,6 +87,6 @@ class OrderControllerTest extends WebTestCase
         $this->assertArrayHasKey('partnerId', $responseContent);
         $this->assertEquals($partnerId, $responseContent['partnerId']);
         $this->assertArrayHasKey('deliveryDate', $responseContent);
-        $this->assertEquals($deliveryDate, (new DateTime($responseContent['deliveryDate']))->format('Y-m-d'));
+        $this->assertEquals($deliveryDate, $responseContent['deliveryDate']);
     }
 }

@@ -89,7 +89,7 @@ class OrderController extends AbstractController
         $result = new OrderResult();
         $result->setOrderId($order->getOrderId());
         $result->setPartnerId($order->getPartnerId());
-        $result->setDeliveryDate($order->getDeliveryDate());
+        $result->setDeliveryDate($order->getDeliveryDate()->format('Y-m-d'));
 
         return $this->createResponse($result, Response::HTTP_OK);
     }
