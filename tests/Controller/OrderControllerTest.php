@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

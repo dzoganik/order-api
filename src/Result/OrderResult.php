@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Result;
 
-use DateTimeInterface;
-
 /**
  * Class OrderResult
  * @package App\Result
