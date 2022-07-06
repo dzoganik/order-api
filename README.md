@@ -68,7 +68,7 @@ Content-Length: 30
 
 ## Testing
 The project contains an application test to test the requests mentioned above.
-- 
+
 - Execute the next commands to create a testing database:
 ```
 bin/console --env=test doctrine:database:create
