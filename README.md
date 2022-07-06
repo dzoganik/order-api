@@ -67,12 +67,9 @@ Content-Length: 30
 ```
 
 ## Testing
-Create a test database:
-- Add .env.test.local file with:
-```
-DATABASE_URL="mysql://root:${MYSQL_ROOT_PASSWORD}@mysql8:3306/${MYSQL_DATABASE}?serverVersion=8&charset=utf8mb4"
-```
-- Run:
+The project contains an application test to test the requests mentioned above.
+- 
+- Execute the next commands to create a testing database:
 ```
 bin/console --env=test doctrine:database:create
 bin/console --env=test doctrine:schema:create
