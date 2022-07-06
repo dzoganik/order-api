@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Event\Listener;
 
-use App\Controller\CommonController;
+use App\Controller\OrderController;
 use App\Exception\ApplicationException;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -47,7 +47,7 @@ class ExceptionListener
     {
         $header = [];
         if (Response::HTTP_BAD_REQUEST === $exception->getStatusCode()) {
-            $header = ['Content-Type' => CommonController::CONTENT_TYPE];
+            $header = ['Content-Type' => OrderController::CONTENT_TYPE];
         } else {
             $this->logger->error($exception);
         }
