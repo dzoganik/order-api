@@ -22,19 +22,19 @@ Content-Length: 438
     "partnerId": "88884334",
     "orderId": "100007",
     "deliveryDate": "2022-08-01",
-    "orderValue": "150.00",
+    "orderValue": 150.00,
     "orderItems": [
         {
             "productId": "asdff",
             "title": "titttle",
-            "price": "140.00",
-            "quantity": "2"
+            "price": 140.00,
+            "quantity": 2
         },
         {
             "productId": "eeee",
             "title": "titttle2",
-            "price": "150.20",
-            "quantity": "2.5"
+            "price": 150.20,
+            "quantity": 2.5
         }
     ]
 }

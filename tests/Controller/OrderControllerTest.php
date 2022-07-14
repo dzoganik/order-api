@@ -24,19 +24,19 @@ class OrderControllerTest extends WebTestCase
             'partnerId' => $partnerId,
             'orderId' => $orderId,
             'deliveryDate' => '2022-08-01',
-            'orderValue' => '5500.50',
+            'orderValue' => 5500.50,
             'orderItems' => [
                 [
                     'productId' => 'p789',
                     'title' => 'Bed 456',
-                    'price' => '5000',
-                    'quantity' => '2',
+                    'price' => 5000,
+                    'quantity' => 2,
                 ],
                 [
                     'productId' => 'p7890',
                     'title' => 'Product 55',
-                    'price' => '500.50',
-                    'quantity' => '1.5',
+                    'price' => 500.50,
+                    'quantity' => 1.5,
                 ],
             ]
         ];
