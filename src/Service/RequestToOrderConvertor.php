@@ -10,7 +10,6 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -20,7 +19,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 class RequestToOrderConvertor
 {
     public const RESPONSE_FORMAT = 'json';
-    public const UPDATABLE_FIELDS = ['deliveryDate'];
 
     /**
      * @param SerializerInterface $serializer
@@ -87,18 +85,12 @@ class RequestToOrderConvertor
      */
     protected function setUpdatedOrder(array $data, Order $order): Order
     {
-        $propertyAccessor = PropertyAccess::createPropertyAccessor();
-
-        foreach ($data as $field => $value) {
-            if (!in_array($field, self::UPDATABLE_FIELDS)) {
-                throw new ValidationException('Field ' . $field . ' cannot be updated.', Response::HTTP_BAD_REQUEST);
+        if (isset($data['deliveryDate'])) {
+            if (empty($data['deliveryDate'])) {
+                throw new ValidationException('Property deliveryDate cannot be empty.', Response::HTTP_BAD_REQUEST);
             }
 
-            if ($field === 'deliveryDate') {
-                $value = new DateTime($value);
-            }
-
-            $propertyAccessor->setValue($order, $field, $value);
+            $order->setDeliveryDate(new DateTime($data['deliveryDate']));
         }
 
         return $order;
