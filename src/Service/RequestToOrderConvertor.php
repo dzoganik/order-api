@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Order;
+use App\Entity\OrderItem;
 use App\Exception\ValidationException;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,10 +34,19 @@ class RequestToOrderConvertor
     /**
      * @param string $data
      * @return Order
+     * @throws Exception
      */
     public function createOrderFromRequest(string $data): Order
     {
-        return $this->serializer->deserialize($data, Order::class, self::RESPONSE_FORMAT);
+        $data = json_decode($data);
+        $order = new Order($data->partnerId, $data->orderId, new DateTime($data->deliveryDate), $data->orderValue);
+
+        foreach ($data->orderItems as $orderItem) {
+            $orderItemObject = new OrderItem($orderItem->productId, $orderItem->title, $orderItem->price, $orderItem->quantity, $order);
+            $order->addOrderItem($orderItemObject);
+        }
+
+        return $order;
     }
 
     /**
