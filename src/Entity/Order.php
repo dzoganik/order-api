@@ -57,14 +57,14 @@ class Order
     private float $orderValue;
 
     /**
-     * @var ArrayCollection|Collection
+     * @var Collection
      */
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: OrderItem::class, cascade: ["persist"])]
     #[Assert\Count(
         min: 1,
         minMessage: 'Order must have at least one item.'
     )]
-    private Collection|ArrayCollection $orderItems;
+    private Collection $orderItems;
 
     public function __construct()
     {
