@@ -66,9 +66,25 @@ class Order
     )]
     private Collection $orderItems;
 
-    public function __construct()
-    {
-        $this->orderItems = new ArrayCollection();
+    /**
+     * @param string $partnerId
+     * @param string $orderId
+     * @param DateTimeInterface $deliveryDate
+     * @param float $orderValue
+     * @param Collection $orderItems
+     */
+    public function __construct(
+        string $partnerId,
+        string $orderId,
+        DateTimeInterface $deliveryDate,
+        float $orderValue,
+        Collection $orderItems = new ArrayCollection()
+    ) {
+        $this->partnerId = $partnerId;
+        $this->orderId = $orderId;
+        $this->deliveryDate = $deliveryDate;
+        $this->orderValue = $orderValue;
+        $this->orderItems = $orderItems;
     }
 
     /**

@@ -59,6 +59,27 @@ class OrderItem
     private Order $parent;
 
     /**
+     * @param string $productId
+     * @param string $title
+     * @param float $price
+     * @param float $quantity
+     * @param Order $parent
+     */
+    public function __construct(
+        string $productId,
+        string $title,
+        float $price,
+        float $quantity,
+        Order $parent
+    ) {
+        $this->productId = $productId;
+        $this->title = $title;
+        $this->price = $price;
+        $this->quantity = $quantity;
+        $this->parent = $parent;
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
