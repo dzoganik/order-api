@@ -10,7 +10,6 @@ use App\Service\RequestToOrderConvertor;
 use App\Validator\RequestValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,14 +26,12 @@ class OrderController extends AbstractController
     /**
      * @param SerializerInterface $serializer
      * @param ValidatorInterface $validator
-     * @param LoggerInterface $logger
      * @param RequestValidator $requestValidator
      * @param RequestToOrderConvertor $requestToOrderConvertor
      */
     public function __construct(
         protected SerializerInterface $serializer,
         protected ValidatorInterface $validator,
-        protected LoggerInterface $logger,
         protected RequestValidator $requestValidator,
         protected RequestToOrderConvertor $requestToOrderConvertor
     ) {}
